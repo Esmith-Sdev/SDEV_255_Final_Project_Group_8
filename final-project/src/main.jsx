@@ -8,9 +8,11 @@ import "bootstrap/dist/js/bootstrap.bundle.min.js";
 import "./styles/index.css";
 import App from "./App";
 
+const base = "/SDEV_255_Final_Project_Group_8";
+
 createRoot(document.getElementById("root")).render(
   <StrictMode>
-    <BrowserRouter basename={import.meta.env.BASE_URL}>
+    <BrowserRouter basename={base}>
       <App />
     </BrowserRouter>
   </StrictMode>
