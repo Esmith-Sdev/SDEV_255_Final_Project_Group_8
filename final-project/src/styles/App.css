@@ -4,6 +4,12 @@
   --secondary-color: #729369;
   --accent-color: #c9e4b6;
   --borders-color: #e0e0e0;
+  --green-gradient: linear-gradient(
+    133deg,
+    rgba(147, 189, 138, 1) 0%,
+    rgba(114, 147, 105, 1) 50%,
+    rgba(177, 204, 169, 1) 100%
+  );
 }
 
 *,

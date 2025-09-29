@@ -4,13 +4,7 @@ import { Link } from "react-router-dom";
 import { Container, Nav, Navbar, NavDropdown } from "react-bootstrap";
 export default function TopNavbar() {
   return (
-    <Navbar
-      id="topNavbar"
-      bg="dark"
-      data-bs-theme="dark"
-      expand="md"
-      sticky="top"
-    >
+    <Navbar id="topNavbar" expand="md" sticky="top">
       <Container fluid>
         <Navbar.Brand as={Link} to="/">
           CourseBuilder.io

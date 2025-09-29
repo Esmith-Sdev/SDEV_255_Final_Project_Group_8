@@ -1,8 +1,18 @@
 #basic-navbar-nav {
   font-family: "Geologica", sans-serif;
+  font-size: 20px;
 }
 #dropdown-basic-button {
   color: #fff !important;
   background-color: var(--primary-color);
   border-radius: 5px;
+}
+#topNavbar {
+  padding: 1rem;
+  color: black;
+  background-color: #fff !important;
+}
+.navbar-brand {
+  font-size: 24px;
+  font-weight: 500;
 }
