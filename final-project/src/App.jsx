@@ -14,6 +14,7 @@ function App() {
       <TopNavbar />
       <Routes>
         <Route path="/" element={<Home />} />
+        <Route index element={<Home />} />
         <Route path="/addclasses" element={<AddClasses />} />
         <Route path="/addcourses" element={<AddCourses />} />
         <Route path="/login" element={<Login />} />
