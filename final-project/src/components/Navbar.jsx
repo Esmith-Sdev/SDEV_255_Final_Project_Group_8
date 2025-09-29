@@ -1,30 +1,62 @@
+import "../styles/App.css";
 import "../styles/Navbar.css";
 import { Link } from "react-router-dom";
-export default function Navbar() {
+import { Container, Nav, Navbar, NavDropdown } from "react-bootstrap";
+export default function TopNavbar() {
   return (
-    <nav
-      role="navigation"
-      className="navbar sticky-top navbar-expand-lg navbar-light"
-      style="background-color: var(--primary-color);"
+    <Navbar
+      id="topNavbar"
+      bg="dark"
+      data-bs-theme="dark"
+      expand="md"
+      sticky="top"
     >
-      <div className="container-fluid">
-        <Link className="navbar-brand" to="/">
+      <Container fluid>
+        <Navbar.Brand as={Link} to="/">
           CourseBuilder.io
-        </Link>
-      </div>
-      <div className=".collapse.navbar-collapse">
-        <div
-          class="nav-link dropdown-toggle"
-          id="navbarDropdown"
-          role="button"
-          data-toggle="dropdown"
-          aria-haspopup="true"
-          aria-expanded="false"
-        >
-          <Link className="dropdown-item">My Classes</Link>
-          <Link className="dropdown-item">Add Classes</Link>
-        </div>
-      </div>
-    </nav>
+        </Navbar.Brand>
+
+        <Navbar.Toggle aria-controls="basic-navbar-nav" />
+        <Navbar.Collapse id="basic-navbar-nav">
+          <Nav className="ms-auto">
+            <Nav.Link className="me-3" as={Link} to="/">
+              Home
+            </Nav.Link>
+
+            <NavDropdown
+              id="dropdown-basic-button"
+              title="My Classes"
+              align="end"
+              className="d-none d-md-block"
+            >
+              <NavDropdown.Item as={Link} to="/myclasses">
+                My Classes
+              </NavDropdown.Item>
+
+              <NavDropdown.Item as={Link} to="/addclasses">
+                Add Classes
+              </NavDropdown.Item>
+            </NavDropdown>
+            <Nav.Link
+              className="ms-3 d-block d-md-none"
+              as={Link}
+              to="/myclasses"
+            >
+              My Classes
+            </Nav.Link>
+            <Nav.Link
+              className="ms-3 d-block d-md-none"
+              as={Link}
+              to="/mycourses"
+            >
+              My Courses
+            </Nav.Link>
+            <Nav.Link className="ms-3" as={Link} to="/login">
+              Login
+            </Nav.Link>
+          </Nav>
+        </Navbar.Collapse>
+      </Container>
+    </Navbar>
   );
 }
