@@ -1,42 +1,100 @@
-#root {
-  max-width: 1280px;
-  margin: 0 auto;
-  padding: 2rem;
-  text-align: center;
+:root {
+  --primary-color: #3181f0;
+  --secondary-var-color: #87d8d2;
+  --secondary-color: #729369;
+  --accent-color: #c9e4b6;
+  --borders-color: #e0e0e0;
+  --green-gradient: linear-gradient(
+    133deg,
+    rgba(147, 189, 138, 1) 0%,
+    rgba(114, 147, 105, 1) 50%,
+    rgba(177, 204, 169, 1) 100%
+  );
 }
 
-.logo {
-  height: 6em;
-  padding: 1.5em;
-  will-change: filter;
-  transition: filter 300ms;
-}
-.logo:hover {
-  filter: drop-shadow(0 0 2em #646cffaa);
-}
-.logo.react:hover {
-  filter: drop-shadow(0 0 2em #61dafbaa);
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
 }
 
-@keyframes logo-spin {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
-  }
+html,
+body {
+  height: 100%;
+  margin: 0;
+  padding: 0;
 }
 
-@media (prefers-reduced-motion: no-preference) {
-  a:nth-of-type(2) .logo {
-    animation: logo-spin infinite 20s linear;
-  }
+body {
+  display: block !important;
+  place-items: unset !important;
+  min-width: 100% !important;
+  margin: 0;
+  padding: 0;
 }
 
-.card {
-  padding: 2em;
+/* Fonts */
+@font-face {
+  font-family: "Geologica";
+  src: url("../assets/fonts/Geologica/Geologica-Light.ttf") format("truetype");
+  font-weight: 300;
+  font-style: normal;
 }
 
-.read-the-docs {
-  color: #888;
+@font-face {
+  font-family: "Geologica";
+  src: url("../assets/fonts/Geologica/Geologica-Regular.ttf") format("truetype");
+  font-weight: 400;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: "Geologica";
+  src: url("../assets/fonts/Geologica/Geologica-SemiBold.ttf")
+    format("truetype");
+  font-weight: 600;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: "Geologica";
+  src: url("../assets/fonts/Geologica/Geologica-Bold.ttf") format("truetype");
+  font-weight: 700;
+  font-style: normal;
+}
+@font-face {
+  font-family: "Inter";
+  src: url("../assets/fonts/Inter/Inter_28pt-Light.ttf") format("truetype");
+  font-weight: 300;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: "Inter";
+  src: url("../assets/fonts/Inter/Inter_28pt-Regular.ttf") format("truetype");
+  font-weight: 400;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: "Inter";
+  src: url("../assets/fonts/Inter/Inter_28pt-Medium.ttf") format("truetype");
+  font-weight: 500;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: "Inter";
+  src: url("../assets/fonts/Inter/Inter_28pt-SemiBold.ttf") format("truetype");
+  font-weight: 600;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: "Inter";
+  src: url("../assets/fonts/Inter/Inter_28pt-Bold.ttf") format("truetype");
+  font-weight: 700;
+  font-style: normal;
 }
