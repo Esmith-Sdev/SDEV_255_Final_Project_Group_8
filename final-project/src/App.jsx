@@ -12,7 +12,6 @@ function App() {
   return (
     <>
       <TopNavbar />
-
       <Routes>
         <Route path="/" element={<Home />} />
         <Route path="/addclasses" element={<AddClasses />} />

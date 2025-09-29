@@ -1,0 +1,15 @@
+#hero {
+  background: var(--secondary-color);
+}
+h1 {
+  font-family: "Geologica";
+  font-weight: 700;
+  font-size: 75px;
+}
+#btnPrimary {
+  background-color: var(--primary-color);
+  font-family: "Geologica";
+}
+p {
+  font-family: "Inter";
+}

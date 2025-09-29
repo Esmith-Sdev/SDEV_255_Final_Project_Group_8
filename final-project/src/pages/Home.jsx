@@ -1,3 +1,10 @@
+import Hero from "../components/Hero.jsx";
+import HomeBody from "../components/HomeBody.jsx";
 export default function Home() {
-  return <h1>Home</h1>;
+  return (
+    <>
+      <Hero />
+      <HomeBody />
+    </>
+  );
 }
