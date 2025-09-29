@@ -13,6 +13,7 @@ function App() {
     <>
       <TopNavbar />
       <Routes>
+        <Route path="/SDEV_255_Final_Project_Group_8" element={<Home />} />
         <Route path="/" element={<Home />} />
         <Route path="/addclasses" element={<AddClasses />} />
         <Route path="/addcourses" element={<AddCourses />} />
