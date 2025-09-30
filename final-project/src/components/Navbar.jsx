@@ -1,4 +1,3 @@
-import "../styles/App.css";
 import "../styles/Navbar.css";
 import { Link } from "react-router-dom";
 import { Container, Nav, Navbar, NavDropdown } from "react-bootstrap";

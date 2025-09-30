@@ -11,6 +11,7 @@
   padding: 1rem;
   color: black;
   background-color: #fff !important;
+  box-shadow: 0 0 10px 0 black;
 }
 .navbar-brand {
   font-size: 24px;

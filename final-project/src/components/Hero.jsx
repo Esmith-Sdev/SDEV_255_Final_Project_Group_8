@@ -1,4 +1,3 @@
-import "../styles/App.css";
 import "../styles/Hero.css";
 import { Container, Button, Image } from "react-bootstrap";
 import ClassroomImage from "../assets/images/Classroom.jpg";
@@ -9,13 +8,12 @@ export default function Hero() {
       style={{ minHeight: "50vh" }}
       className="d-flex align-items-center flex-column justify-content-center text-white"
     >
-      <Container className="d-flex flex-column flex-md-row align-items-center justify-content-center">
-        <Container className="text-center text-md-start m-6">
-          <h1>
-            We Make It
-            <br />
-            Easy
-          </h1>
+      <Container className="d-flex flex-column flex-lg-row align-items-center justify-content-center">
+        <Container
+          className="text-center text-md-start m-6 align-items-center align-items-lg-start
+          justify-content-center d-flex flex-column"
+        >
+          <h1 className="text-wrap">We Make It Easy</h1>
           <p className="lead">Whether you're a Teacher or Student</p>
         </Container>
         <Image
