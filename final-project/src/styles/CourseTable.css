@@ -1,0 +1,38 @@
+.table td {
+  vertical-align: middle;
+  padding: 1rem;
+}
+.table th {
+  font-size: 1rem;
+  padding: 1rem;
+}
+.bi-info,
+.bi-plus,
+.bi-dash {
+  text-align: center;
+}
+.bi-info {
+  font-size: 1.7rem;
+}
+.bi-plus,
+.bi-dash {
+  font-size: 1.5rem;
+}
+.add-btn {
+  background: #28a745;
+  border: none;
+  border-radius: 9999px;
+  line-height: 1;
+  padding: 0.5rem;
+}
+.info-btn {
+  border: none;
+  line-height: 1;
+  padding: 0.5rem;
+}
+.dash-btn {
+  border: none;
+  line-height: 1;
+  padding: 0.5rem;
+  border-radius: 9999px;
+}
