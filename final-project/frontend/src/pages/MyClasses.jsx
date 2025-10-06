@@ -1,5 +1,6 @@
 import CourseTable from "../components/CourseTable";
 import SearchBar from "../components/Searchbar";
+import InfoPopUp from "../frontend/components/InfoPopUp";
 import { Button } from "react-bootstrap";
 export default function MyClasses() {
   return (
@@ -14,6 +15,7 @@ export default function MyClasses() {
         </div>
         <CourseTable />
       </div>
+      <InfoPopUp />
     </>
   );
 }
