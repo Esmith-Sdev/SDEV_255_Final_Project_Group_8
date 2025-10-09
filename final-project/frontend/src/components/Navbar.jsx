@@ -26,10 +26,33 @@ export default function TopNavbar() {
                 My Classes
               </NavDropdown.Item>
 
+              <NavDropdown.Item as={Link} to="/mycourses">
+                My Courses
+              </NavDropdown.Item>
+
               <NavDropdown.Item as={Link} to="/addclasses">
                 Add Classes
               </NavDropdown.Item>
+              <NavDropdown.Item as={Link} to="/addcourses">
+                Add Courses
+              </NavDropdown.Item>
             </NavDropdown>
+
+            <Nav.Link
+              className="ms-3 d-block d-md-none"
+              as={Link}
+              to="/myclasses"
+            >
+              My Classes
+            </Nav.Link>
+
+            <Nav.Link
+              className="ms-3 d-block d-md-none"
+              as={Link}
+              to="/mycourses"
+            >
+              My Courses
+            </Nav.Link>
             <Nav.Link
               className="ms-3 d-block d-md-none"
               as={Link}
@@ -40,9 +63,9 @@ export default function TopNavbar() {
             <Nav.Link
               className="ms-3 d-block d-md-none"
               as={Link}
-              to="/mycourses"
+              to="/addcourses"
             >
-              My Courses
+              Add Courses
             </Nav.Link>
             <Nav.Link className="ms-3" as={Link} to="/login">
               Login

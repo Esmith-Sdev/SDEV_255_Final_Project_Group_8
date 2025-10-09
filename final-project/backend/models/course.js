@@ -1,4 +1,4 @@
-const db = require("../backend/db");
+const db = require("../db.js");
 const Course = db.model("Course", {
   subject: { type: String, required: true },
   course: { type: String, required: true },
