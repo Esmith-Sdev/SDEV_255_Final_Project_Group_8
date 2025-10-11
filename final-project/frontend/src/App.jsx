@@ -8,6 +8,7 @@ import Login from "./pages/Login.jsx";
 import MyClasses from "./pages/MyClasses.jsx";
 import MyCourses from "./pages/MyCourses.jsx";
 import Signup from "./pages/Signup.jsx";
+import Footer from "./components/Footer.jsx";
 function App() {
   return (
     <>
@@ -25,6 +26,7 @@ function App() {
 
         <Route path="*" element={<Home />} />
       </Routes>
+      <Footer />
     </>
   );
 }
