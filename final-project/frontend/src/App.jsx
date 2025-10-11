@@ -12,21 +12,25 @@ import Footer from "./components/Footer.jsx";
 function App() {
   return (
     <>
-      <TopNavbar />
-      <Routes>
-        <Route index element={<Home />} />
-        <Route path="/" element={<Home />} />
+      <div className="page-container">
+        <div className="content-wrap">
+          <TopNavbar />
+          <Routes>
+            <Route index element={<Home />} />
+            <Route path="/" element={<Home />} />
 
-        <Route path="addclasses" element={<AddClasses />} />
-        <Route path="addcourses" element={<AddCourses />} />
-        <Route path="login" element={<Login />} />
-        <Route path="myclasses" element={<MyClasses />} />
-        <Route path="mycourses" element={<MyCourses />} />
-        <Route path="signup" element={<Signup />} />
+            <Route path="addclasses" element={<AddClasses />} />
+            <Route path="addcourses" element={<AddCourses />} />
+            <Route path="login" element={<Login />} />
+            <Route path="myclasses" element={<MyClasses />} />
+            <Route path="mycourses" element={<MyCourses />} />
+            <Route path="signup" element={<Signup />} />
 
-        <Route path="*" element={<Home />} />
-      </Routes>
-      <Footer />
+            <Route path="*" element={<Home />} />
+          </Routes>
+          <Footer />
+        </div>
+      </div>
     </>
   );
 }

@@ -1,30 +1,20 @@
-import { Link } from "react-router-dom";
+import "../styles/Footer.css";
 export default function Footer() {
   return (
     <footer>
-      <div className="footer-section"></div>
-      <div>
+      <div className="footer-section">
+        <h2 style={{ fontSize: "2rem", paddingTop: "2rem" }}>Contact Us</h2>
+        <hr
+          style={{
+            width: "50vw",
+            borderTop: "3px solid black",
+            borderRadius: "5px",
+          }}
+        ></hr>
         <ul>
           <li>
-            <Link to="/Myclasses">My Classes</Link>
-          </li>
-          <li>
-            <Link to="/AddCourses">Add Courses</Link>
-          </li>
-          <li>
-            <Link to="/Home">Home</Link>
-          </li>
-          <li>
-            <Link to="/login">Login</Link>
-          </li>
-          <li>
-            <Link to="/AddClasses">Add Classes</Link>
-          </li>
-          <li>
-            <Link to="/MyCourses">My Courses</Link>
-          </li>
-          <li>
-            <Link to="/SignUp">Sign Up</Link>
+            <p>Email: SDEV255@gmail.com</p>
+            <p>Phone: (111) - 222 -3333</p>
           </li>
         </ul>
         <ul>

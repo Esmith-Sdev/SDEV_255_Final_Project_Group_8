@@ -39,7 +39,9 @@ export default function AddClasses() {
             Search
           </Button>
         </div>
-        <CourseTable courses={courses} showAdd onAdd={handleAdd} />
+        <div style={{ paddingBottom: "10rem" }}>
+          <CourseTable courses={courses} showAdd onAdd={handleAdd} />
+        </div>
       </div>
     </>
   );

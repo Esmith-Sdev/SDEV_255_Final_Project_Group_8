@@ -3,7 +3,9 @@ export default function AddCourses() {
   return (
     <>
       <h2 className="text-center p-5">Add Course</h2>
-      <AddClassForm />
+      <div style={{ paddingBottom: "10rem" }}>
+        <AddClassForm />
+      </div>
     </>
   );
 }

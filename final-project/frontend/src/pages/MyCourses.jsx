@@ -44,7 +44,9 @@ export default function MyCourses() {
   return (
     <>
       <h2 className="text-center p-5">My Courses (Teacher)</h2>
-      <CourseTable courses={courses} showEdit onEdit={openEdit} />
+      <div style={{ paddingBottom: "10rem" }}>
+        <CourseTable courses={courses} showEdit onEdit={openEdit} />
+      </div>
       <Modal
         show={showEdit}
         onHide={closeEdit}

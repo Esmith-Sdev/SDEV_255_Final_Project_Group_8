@@ -37,7 +37,14 @@ export default function MyClasses() {
             Search
           </Button>
         </div>
-        <CourseTable courses={myClasses} showDanger onDanger={handleDrop} />
+        <div style={{ paddingBottom: "10rem" }}>
+          <CourseTable
+            courses={myClasses}
+            showDanger
+            onDanger={handleDrop}
+            style={{ paddingBottom: "10rem" }}
+          />
+        </div>
       </div>
     </>
   );
