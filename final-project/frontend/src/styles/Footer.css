@@ -2,7 +2,7 @@ footer {
   bottom: 0;
   background-color: var(--dark-gray);
   max-width: 100vw;
-  height: 30vh;
+  height: auto;
   overflow: hidden;
 }
 .footer-section {
@@ -19,5 +19,8 @@ footer {
   list-style-type: none;
 }
 .footer-section h2 {
+  color: #fff;
+}
+.footer-section p {
   color: #fff;
 }

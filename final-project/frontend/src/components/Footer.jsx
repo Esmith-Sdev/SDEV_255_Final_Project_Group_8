@@ -19,7 +19,7 @@ export default function Footer() {
         </ul>
         <ul>
           <li>
-            <a href="#">terms & conditions</a>
+            <a href="#">Terms & Conditions</a>
           </li>
         </ul>
         <p>&copy; 2025 Course Builder.io . All rights reserved.</p>
