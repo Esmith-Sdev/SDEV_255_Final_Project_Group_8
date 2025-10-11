@@ -1,4 +1,11 @@
-import { Button, Col, Form, FloatingLabel, InputGroup } from "react-bootstrap";
+import {
+  Spinner,
+  Button,
+  Col,
+  Form,
+  FloatingLabel,
+  InputGroup,
+} from "react-bootstrap";
 import { useState, useEffect } from "react";
 import Row from "react-bootstrap/Row";
 import "../styles/AddCourseForm.css";

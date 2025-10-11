@@ -1,20 +1,28 @@
 import { useEffect, useState } from "react";
 import CourseTable from "../components/CourseTable";
 import SearchBar from "../components/Searchbar";
-import { Modal } from "react-bootstrap";
+import { Modal, Spinner } from "react-bootstrap";
 import AddCourseForm from "../components/AddCourseForm";
+import FullscreenSpinner from "../components/FullscreenSpinner";
 export default function MyCourses() {
   const [courses, setCourses] = useState([]);
   const [editing, setEditing] = useState(null);
   const [showEdit, setShowEdit] = useState(false);
+  const [loading, setLoading] = useState(false);
   const API_BASE = "https://sdev-255-final-project-group-8.onrender.com";
 
   useEffect(() => {
     (async () => {
-      const res = await fetch(`${API_BASE}/api/courses`);
-      if (!res.ok) throw new Error(`HTTP ${res.status}`);
-      const data = await res.json();
-      setCourses(data);
+      setLoading(true);
+      try {
+        const res = await fetch(`${API_BASE}/api/courses`);
+        const data = await res.json();
+        setCourses(Array.isArray(data) ? data : []);
+      } catch (e) {
+        console.error("Load courses failed", e);
+      } finally {
+        setLoading(false);
+      }
     })();
   }, []);
 
@@ -27,24 +35,56 @@ export default function MyCourses() {
     setEditing(null);
   };
 
+  //Drop class
+  const handleDrop = async (course) => {
+    setLoading(true);
+    try {
+      const courseId = course._id;
+      await fetch(`${API_BASE}/api/courses/${courseId}`, {
+        method: "DELETE",
+      });
+      setCourses((prev) => prev.filter((c) => c._id !== courseId));
+      alert("Class Dropped");
+    } finally {
+      setLoading(false);
+    }
+  };
+
   const saveEdit = async (updatedFields) => {
-    const res = await fetch(`${API_BASE}/api/courses/${editing._id}`, {
-      method: "PUT",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify(updatedFields),
-    });
-    if (!res.ok) throw new Error(`HTTP ${res.status}`);
-    const updated = await res.json();
-    setCourses((prev) =>
-      prev.map((c) => (c._id === updated._id ? updated : c))
-    );
-    closeEdit();
+    setLoading(true);
+    try {
+      const res = await fetch(`${API_BASE}/api/courses/${editing._id}`, {
+        method: "PUT",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(updatedFields),
+      });
+      if (!res.ok)
+        throw (
+          new Error(`HTTP ${res.status}`) &&
+          alert("Class not updated. Please make sure all fields are completed.")
+        );
+      const updated = await res.json();
+      setCourses((prev) =>
+        prev.map((c) => (c._id === updated._id ? updated : c))
+      );
+      closeEdit();
+      alert("Class Updated");
+    } finally {
+      setLoading(false);
+    }
   };
 
   return (
     <>
+      <FullscreenSpinner show={loading} />
       <h2 className="text-center p-5">My Courses (Teacher)</h2>
-      <CourseTable courses={courses} showEdit onEdit={openEdit} />
+      <CourseTable
+        courses={courses}
+        showEdit
+        onEdit={openEdit}
+        showDanger
+        onDanger={handleDrop}
+      />
       <Modal
         show={showEdit}
         onHide={closeEdit}

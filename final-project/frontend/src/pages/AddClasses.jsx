@@ -1,36 +1,55 @@
 import { useEffect, useState } from "react";
 import CourseTable from "../components/CourseTable";
 import SearchBar from "../components/Searchbar";
-
-import { Button } from "react-bootstrap";
+import FullscreenSpinner from "../components/FullscreenSpinner";
+import { Button, Spinner } from "react-bootstrap";
 export default function AddClasses() {
   const [courses, setCourses] = useState([]);
   const studentId = "68e5bb88a9e6e78e1721688f"; //Test placeholder replace with dynamic login student ID
-  const API_BASE = "https://sdev-255-final-project-group-8.onrender.com"; //Once deployed replace with render URL
+  const [loading, setLoading] = useState(false);
+  const API_BASE = "https://sdev-255-final-project-group-8.onrender.com";
 
-  //Fetch all courses
   useEffect(() => {
     (async () => {
-      const res = await fetch(`${API_BASE}/api/courses`);
-      const data = await res.json();
-      setCourses(data);
+      setLoading(true);
+      try {
+        const res = await fetch(`${API_BASE}/api/courses`);
+        const data = await res.json();
+        setCourses(Array.isArray(data) ? data : []);
+      } catch (e) {
+        console.error("Load courses failed", e);
+      } finally {
+        setLoading(false);
+      }
     })();
   }, []);
 
   //Add class to myclasses
   const handleAdd = async (course) => {
-    const res = await fetch(`${API_BASE}/api/myclasses`, {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({ courseId: course._id }),
-    });
-    if (!res.ok) throw new Error(`HTTP ${res.status}`);
-    const data = await res.json();
-    setMyClasses(data); // server returns updated list
+    setLoading(true);
+    try {
+      const res = await fetch(`${API_BASE}/api/myclasses`, {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ courseId: course._id }),
+      });
+      const json = await res.json().catch(() => ({}));
+      if (!res.ok)
+        throw (
+          new Error(`HTTP ${res.status}`) &&
+          alert("Class not added. Please contact an ADMIN or try again.")
+        );
+      alert("Class Added!");
+      const data = await res.json();
+      setMyClasses(data); // server returns updated list
+    } finally {
+      setLoading(false);
+    }
   };
 
   return (
     <>
+      <FullscreenSpinner show={loading} />
       <h2 className="text-center p-5">Add Classes</h2>
       <div className="p">
         <SearchBar />

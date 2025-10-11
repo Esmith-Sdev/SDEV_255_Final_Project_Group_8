@@ -8,8 +8,8 @@ export default function CourseTable({
   onEdit,
   onDanger,
   showAdd = false,
-  showDanger = false,
   showEdit = false,
+  showDanger = false,
 }) {
   //Info modal state
   const [showInfo, setShowInfo] = useState(false);
@@ -41,11 +41,11 @@ export default function CourseTable({
               <th>ID</th>
               <th>Subject</th>
               <th>Course</th>
-              <th>Info</th>
-              <th>Credits</th>
-              {showAdd && <th>Add</th>}
-              {showDanger && <th>Remove</th>}
-              {showEdit && <th>Edit</th>}
+              <th className="text-center">Info</th>
+              <th className="text-center">Credits</th>
+              {showAdd && <th className="text-center">Add</th>}
+              {showEdit && <th className="text-center">Edit</th>}
+              {showDanger && <th className="text-center">Remove</th>}
             </tr>
           </thead>
 
@@ -55,7 +55,7 @@ export default function CourseTable({
                 <td>{index + 1}</td>
                 <td>{course.subject}</td>
                 <td>{course.course}</td>
-                <td>
+                <td className="text-center">
                   <Button
                     className="info-btn"
                     onClick={() => openInfo?.(course)}
@@ -63,9 +63,9 @@ export default function CourseTable({
                     <i className="bi bi-info"></i>
                   </Button>
                 </td>
-                <td>{course.credits}</td>
+                <td className="text-center">{course.credits}</td>
                 {showAdd && (
-                  <td>
+                  <td className="text-center">
                     <Button
                       className="add-btn"
                       variant="success"
@@ -75,25 +75,25 @@ export default function CourseTable({
                     </Button>
                   </td>
                 )}
+                {showEdit && (
+                  <td className="text-center">
+                    <Button
+                      className="pencil-btn"
+                      variant="dark"
+                      onClick={() => onEdit?.(course)}
+                    >
+                      <i className="bi bi-pencil"></i>
+                    </Button>
+                  </td>
+                )}
                 {showDanger && (
-                  <td>
+                  <td className="text-center">
                     <Button
                       className="dash-btn"
                       variant="danger"
                       onClick={() => onDanger?.(course)}
                     >
                       <i className="bi bi-dash text-white"></i>
-                    </Button>
-                  </td>
-                )}
-                {showEdit && (
-                  <td>
-                    <Button
-                      className="dash-btn"
-                      variant="dark"
-                      onClick={() => onEdit?.(course)}
-                    >
-                      <i className="bi bi-pencil text-white"></i>
                     </Button>
                   </td>
                 )}
