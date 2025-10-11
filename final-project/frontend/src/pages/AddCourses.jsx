@@ -45,7 +45,9 @@ export default function AddCourses() {
     <>
       <FullscreenSpinner show={loading} />
       <h2 className="text-center p-5">Add Course (Teacher)</h2>
-      <AddClassForm onSubmit={handleAddCourse} />
+      <div style={{ paddingBottom: "10rem" }}>
+        <AddClassForm onSubmit={handleAddCourse} />
+      </div>
     </>
   );
 }

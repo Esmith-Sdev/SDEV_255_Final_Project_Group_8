@@ -78,13 +78,15 @@ export default function MyCourses() {
     <>
       <FullscreenSpinner show={loading} />
       <h2 className="text-center p-5">My Courses (Teacher)</h2>
-      <CourseTable
-        courses={courses}
-        showEdit
-        onEdit={openEdit}
-        showDanger
-        onDanger={handleDrop}
-      />
+      <div style={{ paddingBottom: "10rem" }}>
+        <CourseTable
+          courses={courses}
+          showEdit
+          onEdit={openEdit}
+          showDanger
+          onDanger={handleDrop}
+        />
+      </div>
       <Modal
         show={showEdit}
         onHide={closeEdit}
