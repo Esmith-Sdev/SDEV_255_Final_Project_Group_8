@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 import CourseTable from "../components/CourseTable";
 import SearchBar from "../components/Searchbar";
 import FullscreenSpinner from "../components/FullscreenSpinner";
-import { Button, Spinner } from "react-bootstrap";
+import { Button } from "react-bootstrap";
 export default function AddClasses() {
   const [courses, setCourses] = useState([]);
   const studentId = "68e5bb88a9e6e78e1721688f"; //Test placeholder replace with dynamic login student ID

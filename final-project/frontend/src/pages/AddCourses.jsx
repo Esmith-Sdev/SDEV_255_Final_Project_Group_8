@@ -1,4 +1,3 @@
-import { Spinner } from "react-bootstrap";
 import { useEffect, useState } from "react";
 import AddClassForm from "../components/AddCourseForm";
 import FullscreenSpinner from "../components/FullscreenSpinner";

@@ -1,14 +1,7 @@
-import {
-  Spinner,
-  Button,
-  Col,
-  Form,
-  FloatingLabel,
-  InputGroup,
-} from "react-bootstrap";
+import { Button, Col, Form, Row, InputGroup } from "react-bootstrap";
 import { useState, useEffect } from "react";
 import "../styles/AddCourseForm.css";
-export default function AddClassForm({
+export default function AddCourseForm({
   initialData = { subject: "", course: "", info: "", credits: "0" },
   onSubmit,
   submitLabel = "Submit",

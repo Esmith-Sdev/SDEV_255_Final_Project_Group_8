@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { Spinner } from "react-bootstrap";
+
 import CourseTable from "../components/CourseTable";
 import SearchBar from "../components/Searchbar";
 import FullscreenSpinner from "../components/FullscreenSpinner";

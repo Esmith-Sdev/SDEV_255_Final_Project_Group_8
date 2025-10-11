@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import CourseTable from "../components/CourseTable";
-import SearchBar from "../components/Searchbar";
-import { Modal, Spinner } from "react-bootstrap";
+
+import { Modal } from "react-bootstrap";
 import AddCourseForm from "../components/AddCourseForm";
 import FullscreenSpinner from "../components/FullscreenSpinner";
 export default function MyCourses() {
