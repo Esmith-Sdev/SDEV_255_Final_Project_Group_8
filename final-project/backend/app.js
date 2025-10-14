@@ -42,12 +42,11 @@ router.post("/signup", async (req, res) => {
       expiresIn: JWT_EXPIRES_IN,
     });
 
-    // Keep professor-style fields AND add role
     return res.status(201).json({
       token,
       role: user.role,
-      username2: user.username, // professor’s field name
-      auth: 1, // flag like your prof did
+      username2: user.username,
+      auth: 1,
       user: { id: user._id, username: user.username },
     });
   } catch (err) {
@@ -57,7 +56,7 @@ router.post("/signup", async (req, res) => {
   }
 });
 
-// POST /api/auth/  (login — matches your frontend)
+// POST /api/auth/
 router.post("/", async (req, res) => {
   try {
     let { username, password } = req.body;
@@ -82,8 +81,8 @@ router.post("/", async (req, res) => {
     return res.json({
       token,
       role: user.role,
-      username2: user.username, // professor’s field name
-      auth: 1, // professor-style flag
+      username2: user.username,
+      auth: 1,
       user: { id: user._id, username: user.username },
     });
   } catch (err) {
@@ -93,10 +92,8 @@ router.post("/", async (req, res) => {
   }
 });
 
-// mount the auth router HERE (this yields /api/auth/*)
 app.use("/api/auth", router);
 
-// health
 app.get("/", (req, res) => res.send("Server Running"));
 //Get all courses
 app.get("/api/courses", async (req, res) => {
@@ -107,7 +104,16 @@ app.get("/api/courses", async (req, res) => {
     res.status(500).json({ error: err.message });
   }
 });
-// --- Courses (teacher) ---
+//Courses (teacher)
+app.get("/api/courses", async (req, res) => {
+  try {
+    const courses = await Course.find({});
+    res.json(courses);
+  } catch (err) {
+    res.status(500).json({ error: err.message });
+  }
+});
+
 app.post("/api/courses", async (req, res) => {
   try {
     const saved = await Course.create(req.body);
@@ -117,11 +123,14 @@ app.post("/api/courses", async (req, res) => {
   }
 });
 
-//Create Student with thunderclient
-app.post("/api/students", async (req, res) => {
+app.put("/api/courses/:id", async (req, res) => {
   try {
-    const saved = await Student.create(req.body);
-    res.status(201).json(saved);
+    const updated = await Course.findByIdAndUpdate(req.params.id, req.body, {
+      new: true,
+      runValidators: true,
+    });
+    if (!updated) return res.status(404).json({ error: "Not found" });
+    res.json(updated);
   } catch (err) {
     res.status(400).json({ error: err.message });
   }
@@ -140,63 +149,56 @@ app.put("/api/courses/:id", async (req, res) => {
     res.status(400).json({ error: err.message });
   }
 });
-
-//Ensure we have a default student in no-login mode
-async function getDefaultStudent() {
-  let student = await Student.findOne();
-  if (!student) {
-    student = await Student.create({
-      name: "Default Student",
-      email: "default@example.com",
-      myClasses: [],
-    });
-  }
-  return student;
-}
-
-// Get all classes for the default student
-app.get("/api/myclasses", async (req, res) => {
+//Get a students classes
+app.get("/api/students/:id/myclasses", async (req, res) => {
   try {
-    const student = await getDefaultStudent();
-    await student.populate("myClasses");
+    const student = await Student.findById(req.params.id).populate("myClasses");
+    if (!student) return res.status(404).json({ error: "Student not found" });
     res.json(student.myClasses || []);
   } catch (err) {
-    console.error(err);
     res.status(500).json({ error: err.message });
   }
 });
 
-// Enroll in a course (add to default student's myClasses)
-app.post("/api/myclasses", async (req, res) => {
+//Add course to students classes
+app.post("/api/students/:id/myclasses", async (req, res) => {
   try {
     const { courseId } = req.body;
-    const student = await getDefaultStudent();
-    const exists = student.myClasses.some((id) => id.toString() === courseId);
-    if (!exists) {
+    if (!courseId) return res.status(400).json({ error: "courseId required" });
+
+    const [student, course] = await Promise.all([
+      Student.findById(req.params.id),
+      Course.findById(courseId),
+    ]);
+    if (!student) return res.status(404).json({ error: "Student not found" });
+    if (!course) return res.status(404).json({ error: "Course not found" });
+
+    // prevent duplicates
+    if (!student.myClasses.some((id) => id.toString() === courseId)) {
       student.myClasses.push(courseId);
       await student.save();
     }
     await student.populate("myClasses");
-    res.json(student.myClasses); // return updated list
+    res.status(200).json(student.myClasses);
   } catch (err) {
-    console.error(err);
     res.status(500).json({ error: err.message });
   }
 });
 
 // Drop a course
-app.delete("/api/myclasses/:courseId", async (req, res) => {
+app.delete("/api/students/:id/myclasses/:courseId", async (req, res) => {
   try {
-    const { courseId } = req.params;
-    const student = await getDefaultStudent();
+    const { id, courseId } = req.params;
+    const student = await Student.findById(id);
+    if (!student) return res.status(404).json({ error: "Student not found" });
+
     student.myClasses = student.myClasses.filter(
-      (id) => id.toString() !== courseId
+      (cid) => cid.toString() !== courseId
     );
     await student.save();
     await student.populate("myClasses");
-    res.json(student.myClasses); // return updated list
+    res.json(student.myClasses);
   } catch (err) {
-    console.error(err);
     res.status(500).json({ error: err.message });
   }
 });
