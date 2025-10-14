@@ -42,12 +42,11 @@ router.post("/signup", async (req, res) => {
       expiresIn: JWT_EXPIRES_IN,
     });
 
-    // Keep professor-style fields AND add role
     return res.status(201).json({
       token,
       role: user.role,
-      username2: user.username, // professor’s field name
-      auth: 1, // flag like your prof did
+      username2: user.username,
+      auth: 1,
       user: { id: user._id, username: user.username },
     });
   } catch (err) {
@@ -57,7 +56,7 @@ router.post("/signup", async (req, res) => {
   }
 });
 
-// POST /api/auth/  (login — matches your frontend)
+// POST /api/auth/
 router.post("/", async (req, res) => {
   try {
     let { username, password } = req.body;
@@ -82,8 +81,8 @@ router.post("/", async (req, res) => {
     return res.json({
       token,
       role: user.role,
-      username2: user.username, // professor’s field name
-      auth: 1, // professor-style flag
+      username2: user.username,
+      auth: 1,
       user: { id: user._id, username: user.username },
     });
   } catch (err) {
@@ -93,10 +92,8 @@ router.post("/", async (req, res) => {
   }
 });
 
-// mount the auth router HERE (this yields /api/auth/*)
 app.use("/api/auth", router);
 
-// health
 app.get("/", (req, res) => res.send("Server Running"));
 //Get all courses
 app.get("/api/courses", async (req, res) => {
@@ -107,7 +104,7 @@ app.get("/api/courses", async (req, res) => {
     res.status(500).json({ error: err.message });
   }
 });
-// --- Courses (teacher) ---
+//Courses (teacher)
 app.post("/api/courses", async (req, res) => {
   try {
     const saved = await Course.create(req.body);
@@ -117,7 +114,6 @@ app.post("/api/courses", async (req, res) => {
   }
 });
 
-//Create Student with thunderclient
 app.post("/api/students", async (req, res) => {
   try {
     const saved = await Student.create(req.body);
