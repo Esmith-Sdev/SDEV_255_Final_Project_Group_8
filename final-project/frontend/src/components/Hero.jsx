@@ -1,6 +1,8 @@
 import "../styles/Hero.css";
 import { Container, Button, Image } from "react-bootstrap";
 import ClassroomImage from "../assets/images/Classroom.jpg";
+import CTAButton from "../components/CTA";
+
 export default function Hero() {
   return (
     <div
@@ -22,18 +24,11 @@ export default function Hero() {
           height="auto"
           fluid
           rounded
-          className="ms-md-4 object-fit-cover"
+          className=" object-fit-cover"
         />
       </Container>
       <div className="d-flex align-items center justify-content-center">
-        <Button
-          id="btnPrimary"
-          varient="primary"
-          size="lg"
-          className="mt-5 mb-3"
-        >
-          Get Started
-        </Button>
+        <CTAButton />
       </div>
     </div>
   );

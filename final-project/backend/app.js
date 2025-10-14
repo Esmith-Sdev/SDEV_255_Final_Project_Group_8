@@ -3,21 +3,101 @@ require("dotenv").config();
 const mongoose = require("mongoose");
 const express = require("express");
 var cors = require("cors");
+const bcrypt = require("bcryptjs");
+const jwt = require("jsonwebtoken");
+const JWT_SECRET = process.env.JWT_SECRET || "dev-secret-change-me";
+const JWT_EXPIRES_IN = "7d";
+
 require("../backend/db");
 const bodyParser = require("body-parser");
 const Course = require("./models/course");
+const User = require("./models/user");
 const app = express();
 app.use(cors());
 app.use(bodyParser.json());
 const router = express.Router();
-const Student = require("./models/student");
 
 const PORT = process.env.PORT || 3000;
 app.listen(PORT, () => console.log(`Server running on port ${PORT}`));
-app.get("/", (req, res) => {
-  res.send("Server Running");
+
+router.post("/signup", async (req, res) => {
+  try {
+    let { username, password, isTeacher } = req.body;
+    if (!username || !password) {
+      return res
+        .status(400)
+        .json({ message: "Username and Password Required" });
+    }
+
+    username = String(username).toLowerCase().trim();
+    const existed = await User.findOne({ username });
+    if (existed) return res.status(409).json({ message: "Username taken" });
+
+    const passwordHash = await bcrypt.hash(String(password), 12);
+    const role = isTeacher ? "teacher" : "student";
+
+    const user = await User.create({ username, passwordHash, role });
+
+    const token = jwt.sign({ sub: user._id, role: user.role }, JWT_SECRET, {
+      expiresIn: JWT_EXPIRES_IN,
+    });
+
+    // Keep professor-style fields AND add role
+    return res.status(201).json({
+      token,
+      role: user.role,
+      username2: user.username, // professor’s field name
+      auth: 1, // flag like your prof did
+      user: { id: user._id, username: user.username },
+    });
+  } catch (err) {
+    return res
+      .status(500)
+      .json({ message: "Signup failed", error: err.message });
+  }
 });
 
+// POST /api/auth/  (login — matches your frontend)
+router.post("/", async (req, res) => {
+  try {
+    let { username, password } = req.body;
+    if (!username || !password) {
+      return res
+        .status(400)
+        .json({ message: "Username and Password Required" });
+    }
+
+    const user = await User.findOne({
+      username: String(username).toLowerCase().trim(),
+    }).select("+passwordHash");
+    if (!user) return res.status(401).json({ message: "Invalid credentials" });
+
+    const ok = await bcrypt.compare(String(password), user.passwordHash);
+    if (!ok) return res.status(401).json({ message: "Invalid credentials" });
+
+    const token = jwt.sign({ sub: user._id, role: user.role }, JWT_SECRET, {
+      expiresIn: JWT_EXPIRES_IN,
+    });
+
+    return res.json({
+      token,
+      role: user.role,
+      username2: user.username, // professor’s field name
+      auth: 1, // professor-style flag
+      user: { id: user._id, username: user.username },
+    });
+  } catch (err) {
+    return res
+      .status(500)
+      .json({ message: "Login failed", error: err.message });
+  }
+});
+
+// mount the auth router HERE (this yields /api/auth/*)
+app.use("/api/auth", router);
+
+// health
+app.get("/", (req, res) => res.send("Server Running"));
 //Get all courses
 app.get("/api/courses", async (req, res) => {
   try {
