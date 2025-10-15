@@ -53,52 +53,54 @@ export default function SignUpFormComponent() {
 
   return (
     <>
-      <FullscreenSpinner show={loading} />
-      <Form onSubmit={handleSubmit}>
-        <Form.Group controlId="name">
-          <Form.Label>Name:</Form.Label>
-          <Form.Control
-            type="text"
-            name="name"
-            value={formData.name}
-            onChange={handleChange}
-            required
-          ></Form.Control>
-        </Form.Group>
-        <Form.Group controlId="email">
-          <Form.Label>Email:</Form.Label>
-          <Form.Control
-            type="email"
-            name="email"
-            value={formData.email}
-            onChange={handleChange}
-            required
-          ></Form.Control>
-        </Form.Group>
-        <Form.Group controlId="password">
-          <Form.Label>Password:</Form.Label>
-          <Form.Control
-            type="password"
-            name="password"
-            value={formData.password}
-            onChange={handleChange}
-            required
-          ></Form.Control>
-        </Form.Group>
-        <Form.Group className="pt-3 pb-3" controlId="isTeacher">
-          <Form.Check
-            type="checkbox"
-            label="Are you a Teacher?"
-            name="isTeacher"
-            checked={formData.isTeacher}
-            onChange={handleChange}
-          />
-        </Form.Group>
+      <div className="p-5 d-flex justify-content-center align-items-center">
+        <FullscreenSpinner show={loading} />
+        <Form onSubmit={handleSubmit}>
+          <Form.Group controlId="name">
+            <Form.Label>Name:</Form.Label>
+            <Form.Control
+              type="text"
+              name="name"
+              value={formData.name}
+              onChange={handleChange}
+              required
+            ></Form.Control>
+          </Form.Group>
+          <Form.Group controlId="email">
+            <Form.Label>Email:</Form.Label>
+            <Form.Control
+              type="email"
+              name="email"
+              value={formData.email}
+              onChange={handleChange}
+              required
+            ></Form.Control>
+          </Form.Group>
+          <Form.Group controlId="password">
+            <Form.Label>Password:</Form.Label>
+            <Form.Control
+              type="password"
+              name="password"
+              value={formData.password}
+              onChange={handleChange}
+              required
+            ></Form.Control>
+          </Form.Group>
+          <Form.Group className="pt-3 pb-3" controlId="isTeacher">
+            <Form.Check
+              type="checkbox"
+              label="Are you a Teacher?"
+              name="isTeacher"
+              checked={formData.isTeacher}
+              onChange={handleChange}
+            />
+          </Form.Group>
 
-        <Button variant="primary" type="submit">
-          Sign Up
-        </Button>
-      </Form>
+          <Button variant="primary" type="submit">
+            Sign Up
+          </Button>
+        </Form>
+      </div>
     </>
   );
 }

@@ -12,6 +12,10 @@ export default function Header() {
         return "My Classes";
       case "/addclasses":
         return "Add Classes";
+      case "/login":
+        return "Login";
+      case "/signup":
+        return "Sign Up";
     }
   };
   return (

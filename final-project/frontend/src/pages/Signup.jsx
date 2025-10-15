@@ -1,8 +1,13 @@
 import SignUpFormComponent from "../components/SignUpForm";
+import Header from "../components/Header";
+import "../styles/Signup.css";
 export default function Signup() {
   return (
-    <div className="p-5">
-      <SignUpFormComponent />
-    </div>
+    <>
+      <Header />
+      <div style={{ paddingBottom: "10rem" }}>
+        <SignUpFormComponent />
+      </div>
+    </>
   );
 }
