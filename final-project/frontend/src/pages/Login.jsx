@@ -21,7 +21,7 @@ export default function Login() {
   return (
     <div className="p-5">
       <Form onSubmit={onSubmit}>
-        <Form.Label htmlFor="username">Username</Form.Label>
+        <Form.Label htmlFor="username">Email</Form.Label>
         <Form.Control
           id="username"
           value={username}
