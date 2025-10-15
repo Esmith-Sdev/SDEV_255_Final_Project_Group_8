@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import CourseTable from "../components/CourseTable";
-
+import Header from "../components/Header";
 import { Modal } from "react-bootstrap";
 import AddCourseForm from "../components/AddCourseForm";
 import FullscreenSpinner from "../components/FullscreenSpinner";
@@ -77,7 +77,7 @@ export default function MyCourses() {
   return (
     <>
       <FullscreenSpinner show={loading} />
-      <h2 className="text-center p-5">My Courses (Teacher)</h2>
+      <Header />
       <div style={{ paddingBottom: "10rem" }}>
         <CourseTable
           courses={courses}

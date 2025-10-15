@@ -1,6 +1,6 @@
 footer {
   bottom: 0;
-  background-color: var(--dark-gray);
+  background: var(--blue-gradient);
   max-width: 100vw;
   height: auto;
   overflow: hidden;

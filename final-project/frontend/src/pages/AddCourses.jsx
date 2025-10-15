@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
 import AddClassForm from "../components/AddCourseForm";
+import Header from "../components/Header";
 import FullscreenSpinner from "../components/FullscreenSpinner";
 export default function AddCourses() {
   const [courses, setCourses] = useState([]);
@@ -43,7 +44,7 @@ export default function AddCourses() {
   return (
     <>
       <FullscreenSpinner show={loading} />
-      <h2 className="text-center p-5">Add Course (Teacher)</h2>
+      <Header />
       <div style={{ paddingBottom: "10rem" }}>
         <AddClassForm onSubmit={handleAddCourse} />
       </div>

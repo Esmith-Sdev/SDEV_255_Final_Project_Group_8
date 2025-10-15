@@ -5,11 +5,13 @@ h1 {
   font-family: "Geologica";
   font-weight: 700;
   font-size: 75px;
+  animation: tracking-in-expand 0.7s cubic-bezier(0.215, 0.61, 0.355, 1) both;
 }
 #btnPrimary {
   background-color: var(--primary-color);
   font-family: "Geologica";
 }
-p {
+#hero p {
   font-family: "Inter";
+  animation: tracking-in-expand 0.7s cubic-bezier(0.215, 0.61, 0.355, 1) both;
 }

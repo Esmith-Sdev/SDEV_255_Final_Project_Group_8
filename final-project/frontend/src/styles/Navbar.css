@@ -7,6 +7,13 @@
   background-color: var(--primary-color);
   border-radius: 5px;
 }
+#dropdown-basic-button:hover {
+  background: #0b5ed7;
+}
+
+#dropdown-basic-button:active {
+  background: #0a58ca;
+}
 #topNavbar {
   padding: 1rem;
   color: black;

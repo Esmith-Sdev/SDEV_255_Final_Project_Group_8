@@ -3,11 +3,13 @@ export default function Footer() {
   return (
     <footer>
       <div className="footer-section">
-        <h2 style={{ fontSize: "2rem", paddingTop: "2rem" }}>Contact Us</h2>
+        <h2 style={{ fontSize: "2rem", paddingTop: "2rem", margin: "0" }}>
+          Contact Us
+        </h2>
         <hr
           style={{
             width: "50vw",
-            borderTop: "3px solid black",
+            borderTop: "3px solid white",
             borderRadius: "5px",
           }}
         ></hr>

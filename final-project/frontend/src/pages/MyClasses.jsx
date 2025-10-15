@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-
+import Header from "../components/Header";
 import CourseTable from "../components/CourseTable";
 import SearchBar from "../components/Searchbar";
 import FullscreenSpinner from "../components/FullscreenSpinner";
@@ -48,7 +48,7 @@ export default function MyClasses() {
   return (
     <>
       <FullscreenSpinner show={loading} />
-      <h2 className="text-center p-5">My Classes</h2>
+      <Header />
       <div className="p">
         <SearchBar />
         <div className="d-flex align-items-center justify-content-center">
