@@ -42,7 +42,7 @@ export default function AddCourses() {
       if (!res.ok) throw new Error(msg || res.status);
 
       alert("Course created!");
-      navigate("/");
+      navigate("/mycourses");
     } catch (err) {
       console.error("Create course failed:", err);
       alert("Please fill out all fields");

@@ -40,11 +40,20 @@ export default function MyCourses() {
     setLoading(true);
     try {
       const courseId = course._id;
-      await fetch(`${API_BASE}/api/courses/${courseId}`, {
+      const res = await fetch(`${API_BASE}/api/courses/${courseId}`, {
         method: "DELETE",
       });
+      if (!res.ok) {
+        const msg = await res.text();
+        console.error("Delete failed:", res.status, msg);
+        alert("Class not deleted. Please try again.");
+        return;
+      }
       setCourses((prev) => prev.filter((c) => c._id !== courseId));
       alert("Class Dropped");
+    } catch (err) {
+      console.error("Delete error:", err);
+      alert("Error deleting class.");
     } finally {
       setLoading(false);
     }

@@ -1,4 +1,5 @@
 import { useEffect, useState } from "react";
+import { useNavigate } from "react-router-dom";
 import Header from "../components/Header";
 import CourseTable from "../components/CourseTable";
 import SearchBar from "../components/Searchbar";
@@ -9,7 +10,7 @@ export default function ShoppingCart() {
   const [loading, setLoading] = useState(false);
   const API_BASE = import.meta.env.VITE_API_BASE || "http://localhost:3000";
   const userId = JSON.parse(localStorage.getItem("user"))?.id;
-
+  const navigate = useNavigate();
   useEffect(() => {
     (async () => {
       setLoading(true);
@@ -48,7 +49,6 @@ export default function ShoppingCart() {
       setLoading(false);
     }
   };
-
   const handleCheckout = async () => {
     setLoading(true);
     try {
@@ -69,6 +69,7 @@ export default function ShoppingCart() {
       setCart([]);
       alert("Checkout Successful!");
       console.log("Enrolled classes:", data.myClasses);
+      navigate("/myclasses");
     } catch (err) {
       console.error("Checkout error:", err);
       alert("Error checking out classes. Please try again.");
@@ -103,15 +104,30 @@ export default function ShoppingCart() {
             onDanger={handleDrop}
             style={{ paddingBottom: "10rem" }}
           />
-          <Button
-            size="lg"
-            variant="primary"
-            className="mt-3 mb-5"
-            style={{ width: "25vw" }}
-            onClick={handleCheckout}
-          >
-            Checkout
-          </Button>
+          {cart.length > 0 ? (
+            <Button
+              size="lg"
+              variant="primary"
+              className="mt-3 mb-5"
+              style={{ width: "25vw" }}
+              onClick={handleCheckout}
+            >
+              Checkout
+            </Button>
+          ) : (
+            <>
+              <p>You currently don't have any classes in your cart.</p>
+              <Button
+                size="lg"
+                variant="primary"
+                className="mt-3 mb-5"
+                style={{ width: "25vw" }}
+                onClick={() => (window.location.href = "addclasses")}
+              >
+                Add Classes
+              </Button>
+            </>
+          )}
         </div>
       </div>
     </>

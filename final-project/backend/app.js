@@ -248,3 +248,26 @@ app.post("/api/users/:userId/cart/checkout", async (req, res) => {
     res.status(500).json({ message: "Checkout failed", error: err.message });
   }
 });
+
+//Teacher deletes a course
+app.delete("/api/courses/:id", async (req, res) => {
+  try {
+    const courseId = req.params.id;
+    const removed = await Course.findByIdAndDelete(courseId);
+    if (!removed) return res.status(404).json({ error: "Not found" });
+
+    await User.updateMany(
+      {},
+      {
+        $pull: {
+          myClasses: courseId,
+          cart: courseId,
+        },
+      }
+    );
+    return res.status(204).end();
+  } catch (err) {
+    console.error("Delete course failed:", err);
+    res.status(500).json({ error: err.message });
+  }
+});
