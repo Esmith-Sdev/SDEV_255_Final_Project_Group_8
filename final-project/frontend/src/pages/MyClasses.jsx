@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
 import Header from "../components/Header";
+import { Link } from "react-router-dom";
 import CourseTable from "../components/CourseTable";
 import SearchBar from "../components/Searchbar";
 import FullscreenSpinner from "../components/FullscreenSpinner";
@@ -78,7 +79,8 @@ export default function MyClasses() {
             variant="primary"
             className="mt-3 mb-5"
             style={{ width: "25vw" }}
-            onClick={() => (window.location.href = "addclasses")}
+            as={Link}
+            to="/addclasses"
           >
             Add Classes
           </Button>

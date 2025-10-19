@@ -3,6 +3,7 @@ import CourseTable from "../components/CourseTable";
 import Header from "../components/Header";
 import { Modal, Button } from "react-bootstrap";
 import AddCourseForm from "../components/AddCourseForm";
+import { Link } from "react-router-dom";
 import FullscreenSpinner from "../components/FullscreenSpinner";
 export default function MyCourses() {
   const [courses, setCourses] = useState([]);
@@ -108,7 +109,8 @@ export default function MyCourses() {
           variant="primary"
           className="mt-3 mb-5"
           style={{ width: "25vw" }}
-          onClick={() => (window.location.href = "addcourses")}
+          as={Link}
+          to="/addclasses"
         >
           Create a Course
         </Button>
