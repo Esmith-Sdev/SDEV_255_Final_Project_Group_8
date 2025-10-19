@@ -4,13 +4,13 @@ import CourseTable from "../components/CourseTable";
 import SearchBar from "../components/Searchbar";
 import FullscreenSpinner from "../components/FullscreenSpinner";
 import { Button } from "react-bootstrap";
-
+import { useNavigate } from "react-router-dom";
 export default function AddClasses() {
   const [courses, setCourses] = useState([]);
   const userId = JSON.parse(localStorage.getItem("user"))?.id;
   const [loading, setLoading] = useState(false);
   const API_BASE = import.meta.env.VITE_API_BASE || "http://localhost:3000";
-
+  const navigate = useNavigate();
   useEffect(() => {
     (async () => {
       setLoading(true);
@@ -48,6 +48,7 @@ export default function AddClasses() {
       console.log("status", res.status, "body:", body);
       if (!res.ok) throw new Error(`HTTP ${res.status}`);
       alert("Class added to Cart!");
+      navigate("/cart");
     } catch (err) {
       console.error("Add failed:", err);
       alert("Class not added. Please try again.");

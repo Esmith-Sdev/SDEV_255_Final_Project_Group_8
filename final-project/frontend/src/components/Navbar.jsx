@@ -48,19 +48,14 @@ export default function TopNavbar() {
 
         <Navbar.Toggle aria-controls="basic-navbar-nav" />
         <Navbar.Collapse id="basic-navbar-nav">
-          <Nav className="ms-auto d-flex align-items-center">
-            <Nav.Link className="" as={Link} to="/">
+          <Nav className="ms-auto d-flex align-items-center justify-content-space-evenly">
+            <Nav.Link as={Link} to="/">
               Home
             </Nav.Link>
             {role === "student" && (
               <>
-                <Nav.Link
-                  as={Link}
-                  to="/cart"
-                  id="navCartText"
-                  className="me-3"
-                >
-                  Cart
+                <Nav.Link as={Link} to="/cart" id="navCartText">
+                  <Button id="navCartBtn">Cart</Button>
                 </Nav.Link>
               </>
             )}
@@ -82,7 +77,7 @@ export default function TopNavbar() {
               <Nav.Link
                 key={`${it.id}-sm`}
                 id={`${it.id}-sm`}
-                className="ms-3 d-block d-md-none"
+                className=" d-block d-md-none"
                 as={Link}
                 to={it.to}
               >
@@ -90,14 +85,13 @@ export default function TopNavbar() {
               </Nav.Link>
             ))}
             {!isAuthed ? (
-              <Nav.Link className="ms-3" as={Link} to="/login">
+              <Nav.Link as={Link} to="/login">
                 Login
               </Nav.Link>
             ) : (
               <Button
                 id="logoutBtn"
                 variant="outline-dark"
-                className="ms-3"
                 onClick={handleLogout}
               >
                 Logout

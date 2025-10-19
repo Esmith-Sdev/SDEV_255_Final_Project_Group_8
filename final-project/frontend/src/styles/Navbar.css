@@ -1,18 +1,38 @@
+.navbar-nav {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+}
 #basic-navbar-nav {
   font-family: "Geologica", sans-serif;
-  font-size: 20px;
+  font-size: 1.3rem !important;
 }
+.navbar,
 #dropdown-basic-button {
-  color: #fff !important;
-  background-color: var(--primary-color);
+  background-color: transparent;
+  border: 1px solid black;
   border-radius: 5px;
+  padding: 0.4rem 0.8rem;
+  color: rgba(0, 0, 0, 0.7);
+  font-family: "Geologica", sans-serif;
+  font-size: 1rem;
+  transition: all 0.2s ease-in-out;
 }
-#dropdown-basic-button:hover {
-  background: #0b5ed7;
-}
-
+.navButton:hover,
+#dropdown-basic-button:hover,
+.navButton:active,
 #dropdown-basic-button:active {
-  background: #0a58ca;
+  background-color: #212529;
+  border-color: white;
+  color: white !important;
+  box-shadow: none;
+}
+.dropdown-menu a:hover {
+  background-color: lightgray;
+}
+.dropdown-menu a:focus {
+  background: #212529;
+  color: #fff;
 }
 #topNavbar {
   padding: 1rem;
@@ -24,6 +44,21 @@
   font-size: 24px;
   font-weight: 500;
 }
-#shoppingCart {
-  font-size: 2rem;
+#navCartBtn {
+  background-color: var(--primary-color);
+  color: #fff;
+  font-family: "Geologica", sans-serif;
+  font-size: 1rem;
+  transition: all 0.2s ease-in-out;
+  width: 6rem;
+}
+#navCartBtn:hover {
+  background: #0b5ed7;
+}
+#navCartBtn:active {
+  background: #0a58ca;
+}
+#navCartText {
+  color: #fff;
+  padding: 0 !important;
 }
