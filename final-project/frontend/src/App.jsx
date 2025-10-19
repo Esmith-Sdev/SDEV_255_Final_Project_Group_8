@@ -9,6 +9,7 @@ import MyClasses from "./pages/MyClasses.jsx";
 import MyCourses from "./pages/MyCourses.jsx";
 import Signup from "./pages/Signup.jsx";
 import Footer from "./components/Footer.jsx";
+import ShoppingCart from "./pages/ShoppingCart.jsx";
 function App() {
   return (
     <>
@@ -25,7 +26,7 @@ function App() {
             <Route path="myclasses" element={<MyClasses />} />
             <Route path="mycourses" element={<MyCourses />} />
             <Route path="signup" element={<Signup />} />
-
+            <Route path="cart" element={<ShoppingCart />} />
             <Route path="*" element={<Home />} />
           </Routes>
           <Footer />

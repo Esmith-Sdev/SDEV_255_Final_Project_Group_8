@@ -16,6 +16,8 @@ export default function Header() {
         return "Login";
       case "/signup":
         return "Sign Up";
+      case "/cart":
+        return "Shopping Cart";
     }
   };
   return (

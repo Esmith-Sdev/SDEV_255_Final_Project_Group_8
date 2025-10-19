@@ -13,6 +13,7 @@ export async function login(username, password) {
     localStorage.setItem("role", data.role);
     localStorage.setItem("auth", data.auth);
     localStorage.setItem("uname", data.username2);
+    localStorage.setItem("user", JSON.stringify(data.user));
     return data;
   } else {
     throw new Error(data.message || "Login failed");

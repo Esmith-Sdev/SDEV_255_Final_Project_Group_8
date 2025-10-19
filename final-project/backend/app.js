@@ -137,43 +137,20 @@ app.put("/api/courses/:id", async (req, res) => {
   }
 });
 
-//Ensure we have a default student in no-login mode
-async function getDefaultStudent() {
-  let student = await Student.findOne();
-  if (!student) {
-    student = await Student.create({
-      name: "Default Student",
-      email: "default@example.com",
-      myClasses: [],
-    });
-  }
-  return student;
-}
-
-// Get all classes for the default student
-app.get("/api/myclasses", async (req, res) => {
+// Get all classes for the student
+app.get("/api/users/:userId/myclasses", async (req, res) => {
   try {
-    const student = await getDefaultStudent();
-    await student.populate("myClasses");
-    res.json(student.myClasses || []);
-  } catch (err) {
-    console.error(err);
-    res.status(500).json({ error: err.message });
-  }
-});
+    const { userId, courseId } = req.params;
+    const user = await User.findById(userId).populate("myClasses");
+    res.json(user.myClasses || []);
+    if (!user) return res.status(404).json({ message: "User not found" });
 
-// Enroll in a course (add to default student's myClasses)
-app.post("/api/myclasses", async (req, res) => {
-  try {
-    const { courseId } = req.body;
-    const student = await getDefaultStudent();
-    const exists = student.myClasses.some((id) => id.toString() === courseId);
-    if (!exists) {
-      student.myClasses.push(courseId);
-      await student.save();
-    }
-    await student.populate("myClasses");
-    res.json(student.myClasses); // return updated list
+    user.myClasses = user.myClasses.filter(
+      (id) => String(id) !== String(courseId)
+    );
+    await user.save();
+    await user.populate("myClasses");
+    res.json(user.myClasses);
   } catch (err) {
     console.error(err);
     res.status(500).json({ error: err.message });
@@ -181,18 +158,93 @@ app.post("/api/myclasses", async (req, res) => {
 });
 
 // Drop a course
-app.delete("/api/myclasses/:courseId", async (req, res) => {
+app.delete("/api/users/:userId/myclasses/:courseId", async (req, res) => {
   try {
-    const { courseId } = req.params;
-    const student = await getDefaultStudent();
-    student.myClasses = student.myClasses.filter(
-      (id) => id.toString() !== courseId
+    const { userId, courseId } = req.params;
+
+    const user = await User.findById(userId);
+    if (!user) return res.status(404).json({ message: "User not found" });
+
+    user.myClasses = user.myClasses.filter(
+      (id) => String(id) !== String(courseId)
     );
-    await student.save();
-    await student.populate("myClasses");
-    res.json(student.myClasses); // return updated list
+
+    await user.save();
+    await user.populate("myClasses");
+    res.json(user.myClasses);
+  } catch (err) {
+    console.error("Drop failed:", err);
+    res.status(500).json({ error: err.message });
+  }
+});
+
+// Add course to cart
+app.post("/api/users/:userId/cart", async (req, res) => {
+  const { userId } = req.params;
+  const { courseId } = req.body;
+
+  const user = await User.findById(userId);
+  if (!user) return res.status(404).json({ message: "User not found" });
+
+  if (user.cart.map(String).includes(String(courseId))) {
+    return res.status(409).json({ message: "Already in cart" });
+  }
+
+  user.cart.push(courseId);
+  await user.save();
+  res.status(201).json({ cart: user.cart });
+});
+
+// Get student cart
+app.get("/api/users/:userId/cart", async (req, res) => {
+  try {
+    const user = await User.findById(req.params.userId).populate("cart");
+    if (!user) return res.status(404).json({ message: "User not found" });
+    res.json(user.cart);
   } catch (err) {
     console.error(err);
-    res.status(500).json({ error: err.message });
+    res
+      .status(500)
+      .json({ message: "Error retrieving cart", error: err.message });
+  }
+});
+
+// Remove specific course from cart
+app.delete("/api/users/:userId/cart/:courseId", async (req, res) => {
+  try {
+    const { userId, courseId } = req.params;
+    const user = await User.findById(userId);
+    if (!user) return res.status(404).json({ message: "User not found" });
+
+    user.cart = user.cart.filter((id) => String(id) !== String(courseId));
+    await user.save();
+    return res.status(204).end();
+  } catch (err) {
+    console.error(err);
+    res
+      .status(500)
+      .json({ message: "Error removing from cart", error: err.message });
+  }
+});
+
+// Checkout
+app.post("/api/users/:userId/cart/checkout", async (req, res) => {
+  try {
+    const { userId } = req.params;
+    const user = await User.findById(userId).select("+cart +myClasses");
+    if (!user) return res.status(404).json({ message: "User not found" });
+
+    const merged = new Set([
+      ...user.myClasses.map(String),
+      ...user.cart.map(String),
+    ]);
+    user.myClasses = Array.from(merged);
+    user.cart = [];
+    await user.save();
+    await user.populate("myClasses");
+    return res.json({ myClasses: user.myClasses });
+  } catch (err) {
+    console.error(err);
+    res.status(500).json({ message: "Checkout failed", error: err.message });
   }
 });

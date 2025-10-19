@@ -6,15 +6,14 @@ import FullscreenSpinner from "../components/FullscreenSpinner";
 import { Button } from "react-bootstrap";
 export default function MyClasses() {
   const [myClasses, setMyClasses] = useState([]);
-  const studentId = "68e5bb88a9e6e78e1721688f"; //Test placeholder replace with dynamic login student ID
   const [loading, setLoading] = useState(false);
-  const API_BASE = "https://sdev-255-final-project-group-8.onrender.com";
-
+  const API_BASE = import.meta.env.VITE_API_BASE || "http://localhost:3000";
+  const userId = JSON.parse(localStorage.getItem("user"))?.id;
   useEffect(() => {
     (async () => {
       setLoading(true);
       try {
-        const res = await fetch(`${API_BASE}/api/myclasses`);
+        const res = await fetch(`${API_BASE}/api/users/${userId}/myclasses`);
         const data = await res.json();
         setMyClasses(Array.isArray(data) ? data : []);
       } catch (e) {
@@ -30,9 +29,12 @@ export default function MyClasses() {
     setLoading(true);
     try {
       const courseId = course._id;
-      await fetch(`${API_BASE}/api/myclasses/${courseId}`, {
-        method: "DELETE",
-      });
+      const res = await fetch(
+        `${API_BASE}/api/users/${userId}/myclasses/${courseId}`,
+        {
+          method: "DELETE",
+        }
+      );
       setMyClasses((prev) => prev.filter((c) => c._id !== courseId));
       if (!res.ok)
         throw (

@@ -48,10 +48,22 @@ export default function TopNavbar() {
 
         <Navbar.Toggle aria-controls="basic-navbar-nav" />
         <Navbar.Collapse id="basic-navbar-nav">
-          <Nav className="ms-auto">
-            <Nav.Link className="me-3" as={Link} to="/">
+          <Nav className="ms-auto d-flex align-items-center">
+            <Nav.Link className="" as={Link} to="/">
               Home
             </Nav.Link>
+            {role === "student" && (
+              <>
+                <Nav.Link
+                  as={Link}
+                  to="/cart"
+                  id="navCartText"
+                  className="me-3"
+                >
+                  Cart
+                </Nav.Link>
+              </>
+            )}
             {items.length > 0 && (
               <NavDropdown
                 id="dropdown-basic-button"

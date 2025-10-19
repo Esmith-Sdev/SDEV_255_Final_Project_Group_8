@@ -1,7 +1,6 @@
-const mongoose = require("mongoose");
 const db = require("../db.js");
 
-const UserSchema = new db.Schema({
+const userSchema = new db.Schema({
   username: {
     type: String,
     required: true,
@@ -15,10 +14,10 @@ const UserSchema = new db.Schema({
     required: true,
     default: "student",
   },
-  passwordHash: { type: String, required: true, select: false }, // ← match app.js
-
-  myClasses: [{ type: mongoose.Schema.Types.ObjectId, ref: "Course" }],
+  passwordHash: { type: String, required: true, select: false },
+  myClasses: [{ type: db.Schema.Types.ObjectId, ref: "Course" }],
+  cart: [{ type: db.Schema.Types.ObjectId, ref: "Course" }],
 });
 
-const User = db.model("User", UserSchema);
+const User = db.model("User", userSchema);
 module.exports = User;

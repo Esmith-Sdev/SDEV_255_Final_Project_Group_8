@@ -5,7 +5,7 @@ import { getRole, getToken } from "../api/auth";
 function handleCTA(role, token) {
   if (!token || !role) return { to: "/login" };
   if (role === "teacher") return { to: "/mycourses" };
-  return { to: "/myclasses" };
+  return { to: "/addclasses" };
 }
 
 export default function CTAButton() {
@@ -17,7 +17,7 @@ export default function CTAButton() {
     setRole(getRole());
     setToken(getToken());
   }, [location]);
-  const { to, label } = handleCTA(role, token);
+  const { to } = handleCTA(role, token);
 
   return (
     <Button

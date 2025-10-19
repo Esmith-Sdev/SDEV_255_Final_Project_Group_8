@@ -4,11 +4,12 @@ import CourseTable from "../components/CourseTable";
 import SearchBar from "../components/Searchbar";
 import FullscreenSpinner from "../components/FullscreenSpinner";
 import { Button } from "react-bootstrap";
+
 export default function AddClasses() {
   const [courses, setCourses] = useState([]);
-  const studentId = "68e5bb88a9e6e78e1721688f"; //Test placeholder replace with dynamic login student ID
+  const userId = JSON.parse(localStorage.getItem("user"))?.id;
   const [loading, setLoading] = useState(false);
-  const API_BASE = "https://sdev-255-final-project-group-8.onrender.com";
+  const API_BASE = import.meta.env.VITE_API_BASE || "http://localhost:3000";
 
   useEffect(() => {
     (async () => {
@@ -16,7 +17,7 @@ export default function AddClasses() {
       try {
         const res = await fetch(`${API_BASE}/api/courses`);
         const data = await res.json();
-        setCourses(Array.isArray(data) ? data : []);
+        setCourses(data);
       } catch (e) {
         console.error("Load courses failed", e);
       } finally {
@@ -25,24 +26,31 @@ export default function AddClasses() {
     })();
   }, []);
 
-  //Add class to myclasses
+  //Add class to cart
   const handleAdd = async (course) => {
     setLoading(true);
     try {
-      const res = await fetch(`${API_BASE}/api/myclasses`, {
+      if (!userId) {
+        alert("You must be logged in to add classes.");
+        return;
+      }
+
+      const courseId = course._id;
+      const url = `${API_BASE}/api/users/${userId}/cart`;
+      console.log("POST", url, { courseId });
+
+      const res = await fetch(url, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ courseId: course._id }),
+        body: JSON.stringify({ courseId }),
       });
-      const json = await res.json().catch(() => ({}));
-      if (!res.ok)
-        throw (
-          new Error(`HTTP ${res.status}`) &&
-          alert("Class not added. Please contact an ADMIN or try again.")
-        );
-      alert("Class Added!");
-      const data = await res.json();
-      setMyClasses(data); // server returns updated list
+      const body = await res.text();
+      console.log("status", res.status, "body:", body);
+      if (!res.ok) throw new Error(`HTTP ${res.status}`);
+      alert("Class added to Cart!");
+    } catch (err) {
+      console.error("Add failed:", err);
+      alert("Class not added. Please try again.");
     } finally {
       setLoading(false);
     }

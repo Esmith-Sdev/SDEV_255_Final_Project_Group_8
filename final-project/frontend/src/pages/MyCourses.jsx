@@ -9,7 +9,7 @@ export default function MyCourses() {
   const [editing, setEditing] = useState(null);
   const [showEdit, setShowEdit] = useState(false);
   const [loading, setLoading] = useState(false);
-  const API_BASE = "https://sdev-255-final-project-group-8.onrender.com";
+  const API_BASE = import.meta.env.VITE_API_BASE || "http://localhost:3000";
 
   useEffect(() => {
     (async () => {

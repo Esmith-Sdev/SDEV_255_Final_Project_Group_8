@@ -1,9 +1,11 @@
 import { useState } from "react";
+import { useNavigate } from "react-router-dom";
 import { Form, Button } from "react-bootstrap";
 import FullscreenSpinner from "./FullscreenSpinner";
 export default function SignUpFormComponent() {
   const [loading, setLoading] = useState(false);
-  const API_BASE = "https://sdev-255-final-project-group-8.onrender.com";
+  const API_BASE = import.meta.env.VITE_API_BASE || "http://localhost:3000";
+  const navigate = useNavigate();
   const [formData, setFormData] = useState({
     name: "",
     email: "",
@@ -38,7 +40,7 @@ export default function SignUpFormComponent() {
         alert(
           formData.isTeacher ? "Teacher account made!" : "Student account made!"
         );
-        window.location.href = "/login";
+        navigate("/login");
       } else if (res.status === 409) {
         alert("That email is already registered.");
       } else {
