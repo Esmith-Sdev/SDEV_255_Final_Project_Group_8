@@ -85,15 +85,14 @@ export default function TopNavbar() {
               </Nav.Link>
             ))}
             {!isAuthed ? (
-              <Nav.Link as={Link} to="/login">
-                Login
-              </Nav.Link>
-            ) : (
               <Button
-                id="logoutBtn"
-                variant="outline-dark"
-                onClick={handleLogout}
+                id="loginBtn"
+                onClick={() => (window.location.href = "/login")}
               >
+                Login
+              </Button>
+            ) : (
+              <Button id="logoutBtn" onClick={handleLogout}>
                 Logout
               </Button>
             )}

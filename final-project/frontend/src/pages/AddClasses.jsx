@@ -65,7 +65,7 @@ export default function AddClasses() {
       <div className="p">
         <SearchBar />
         <div className="d-flex align-items-center justify-content-center">
-          <Button size="lg" variant="primary" className="mt-3 mb-5">
+          <Button size="lg" variant="outline-dark" className="mt-3 mb-5">
             Search
           </Button>
         </div>

@@ -54,17 +54,34 @@ export default function MyClasses() {
       <div className="p">
         <SearchBar />
         <div className="d-flex align-items-center justify-content-center">
-          <Button size="lg" variant="primary" className="mt-3 mb-5">
+          <Button size="lg" variant="outline-dark" className="mt-3 mb-5">
             Search
           </Button>
         </div>
-        <div style={{ paddingBottom: "10rem" }}>
+        <div
+          style={{
+            paddingBottom: "10rem",
+            display: "flex",
+            justifyContent: "center",
+            alignItems: "center",
+            flexDirection: "column",
+          }}
+        >
           <CourseTable
             courses={myClasses}
             showDanger
             onDanger={handleDrop}
             style={{ paddingBottom: "10rem" }}
           />
+          <Button
+            size="lg"
+            variant="primary"
+            className="mt-3 mb-5"
+            style={{ width: "25vw" }}
+            onClick={() => (window.location.href = "addclasses")}
+          >
+            Add Classes
+          </Button>
         </div>
       </div>
     </>

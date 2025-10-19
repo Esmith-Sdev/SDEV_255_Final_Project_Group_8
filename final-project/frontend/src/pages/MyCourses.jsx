@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import CourseTable from "../components/CourseTable";
 import Header from "../components/Header";
-import { Modal } from "react-bootstrap";
+import { Modal, Button } from "react-bootstrap";
 import AddCourseForm from "../components/AddCourseForm";
 import FullscreenSpinner from "../components/FullscreenSpinner";
 export default function MyCourses() {
@@ -87,7 +87,15 @@ export default function MyCourses() {
     <>
       <FullscreenSpinner show={loading} />
       <Header />
-      <div style={{ paddingBottom: "10rem" }}>
+      <div
+        style={{
+          paddingBottom: "10rem",
+          display: "flex",
+          justifyContent: "center",
+          alignItems: "center",
+          flexDirection: "column",
+        }}
+      >
         <CourseTable
           courses={courses}
           showEdit
@@ -95,6 +103,15 @@ export default function MyCourses() {
           showDanger
           onDanger={handleDrop}
         />
+        <Button
+          size="lg"
+          variant="primary"
+          className="mt-3 mb-5"
+          style={{ width: "25vw" }}
+          onClick={() => (window.location.href = "addcourses")}
+        >
+          Create a Course
+        </Button>
       </div>
       <Modal
         show={showEdit}

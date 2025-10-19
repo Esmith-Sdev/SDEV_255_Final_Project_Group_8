@@ -8,7 +8,9 @@
   font-size: 1.3rem !important;
 }
 .navbar,
-#dropdown-basic-button {
+#dropdown-basic-button,
+#loginBtn,
+#logoutBtn {
   background-color: transparent;
   border: 1px solid black;
   border-radius: 5px;
@@ -18,10 +20,19 @@
   font-size: 1rem;
   transition: all 0.2s ease-in-out;
 }
+.navButton:active,
+#dropdown-basic-button:active,
+#loginBtn:active,
+#logoutBtn:active {
+  background-color: #0a0b0c !important;
+  border-color: white;
+  color: white !important;
+  box-shadow: none;
+}
 .navButton:hover,
 #dropdown-basic-button:hover,
-.navButton:active,
-#dropdown-basic-button:active {
+#loginBtn:hover,
+#logoutBtn:hover {
   background-color: #212529;
   border-color: white;
   color: white !important;
@@ -51,6 +62,7 @@
   font-size: 1rem;
   transition: all 0.2s ease-in-out;
   width: 6rem;
+  padding: 0.4rem 0.8rem;
 }
 #navCartBtn:hover {
   background: #0b5ed7;

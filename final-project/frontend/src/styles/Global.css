@@ -69,9 +69,9 @@
   --borders-color: #e0e0e0;
   --blue-gradient: linear-gradient(
     133deg,
-    rgb(110, 168, 255) -50%,
+    rgb(164, 201, 255) -50%,
     rgb(13, 110, 253) 50%,
-    rgb(35, 123, 255) 150%
+    rgb(143, 188, 255) 150%
   );
   --green-gradient: linear-gradient(
     133deg,
